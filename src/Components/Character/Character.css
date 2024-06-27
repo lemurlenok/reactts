@@ -1,0 +1,11 @@
+.character-container {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.character-container img {
+    max-width: 100%;
+    height: auto;
+}

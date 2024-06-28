@@ -1,45 +1,62 @@
-import React, { useEffect, useState } from 'react';
-// @ts-ignore
-import { getUsers } from '../services/userService';
+import React, { FC, useState, useEffect } from 'react';
+import UserComponent from '../user-component/userComponent';
+import { IUser } from '../../models/IUser';
+import { getAllUsers, getPostsOfUserById, getAllPostsByUserId } from '../../services/api.service';
+import { IPost } from '../../models/IPost';
+import PostsComponent from '../posts-component/PostComponent';
 
-interface User {
-    id: number;
-    name: string;
-}
-
-interface Props {
-    onUserSelect: (userId: number) => void;
-}
-
-const Users: React.FC<Props> = ({ onUserSelect }) => {
-    const [users, setUsers] = useState<User[]>([]);
+const UsersComponent: FC = () => {
+    const [users, setUsers] = useState<IUser[]>([]);
+    const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
+    const [selectedUserPosts, setSelectedUserPosts] = useState<IPost[]>([]);
 
     useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                const fetchedUsers = await getUsers();
-                setUsers(fetchedUsers);
-            } catch (error) {
-                console.error('Помилка отримання користувачів:', error);
-            }
-        };
-
-        fetchUsers();
+        getAllUsers().then(usersData => {
+            setUsers(usersData);
+        }).catch(error => {
+            console.error('Error fetching users:', error);
+        });
     }, []);
+
+    const handleGetPosts = (userId: number) => {
+        getPostsOfUserById(userId).then(postsData => {
+            setSelectedUserPosts(postsData);
+        }).catch(error => {
+            console.error(`Error fetching posts for user ${userId}:`, error);
+        });
+    };
+
+    const handleGetUserPosts = async (userId: number) => {
+        try {
+            const posts = await getAllPostsByUserId(userId);
+            setSelectedUserPosts(posts);
+        } catch (error) {
+            console.error(`Error fetching posts for user ${userId}:`, error);
+        }
+    };
 
     return (
         <div>
-            <h2>Користувачі</h2>
-            <ul>
-                {users.map((user) => (
-                    <li key={user.id}>
-                        {user.name}{' '}
-                        <button onClick={() => onUserSelect(user.id)}>Вибрати</button>
-                    </li>
+            <hr />
+            <div>
+                {users.map(user => (
+                    <UserComponent
+                        key={user.id}
+                        user={user}
+                        onSelectUser={setSelectedUserId}
+                        onGetUserPosts={handleGetUserPosts} // Додаємо функцію обробки для кнопки
+                    />
                 ))}
-            </ul>
+            </div>
+            <hr />
+
+            {selectedUserId !== null && (
+                <div>
+                    <PostsComponent posts={selectedUserPosts} />
+                </div>
+            )}
         </div>
     );
 };
 
-export default Users;
+export default UsersComponent;

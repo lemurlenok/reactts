@@ -1,22 +1,19 @@
-import React, { FC } from 'react';
-import { IUser } from '../../models/IUser';
+import React, {FC} from 'react';
+import {IUser} from "../../models/IUser";
 
-interface IProps {
+
+interface IProps{
     user: IUser;
-    onSelectUser: (userId: number) => void;
-    onGetUserPosts: (userId: number) => void; // Додаємо пропс для функції отримання постів користувача
+    getPosts:(id:number)=>void;
 }
 
-const UserComponent: FC<IProps> = ({ user, onSelectUser, onGetUserPosts }) => {
+const UserComponent:FC<IProps> = ({user, getPosts}) => {
     return (
         <div>
-            {user.id} : {user.lastName} -
-            <button onClick={() => {
-                onSelectUser(user.id);
-                onGetUserPosts(user.id); // Викликаємо функцію для отримання постів
-            }}>
-                Show posts of this user
-            </button>
+            {user.id} - {user.firstName} {user.lastName}: - {user.email}
+            <button onClick={()=>{
+                getPosts(user.id)
+            }}>show all the posts</button>
         </div>
     );
 };

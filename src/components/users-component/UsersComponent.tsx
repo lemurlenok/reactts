@@ -1,62 +1,51 @@
 import React, { FC, useState, useEffect } from 'react';
 import UserComponent from '../user-component/userComponent';
 import { IUser } from '../../models/IUser';
-import { getAllUsers, getPostsOfUserById, getAllPostsByUserId } from '../../services/api.service';
+import {getAllUsers,getAllPostsByUserId} from '../../services/api.service';
 import { IPost } from '../../models/IPost';
 import PostsComponent from '../posts-component/PostComponent';
 
-const UsersComponent: FC = () => {
-    const [users, setUsers] = useState<IUser[]>([]);
-    const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
-    const [selectedUserPosts, setSelectedUserPosts] = useState<IPost[]>([]);
+const UsersComponent = ()=> {
+    const [users, setUsers] = useState<IUser[]>([])
+    const [posts, setPosts] = useState<IPost[]>([])
 
     useEffect(() => {
-        getAllUsers().then(usersData => {
-            setUsers(usersData);
-        }).catch(error => {
-            console.error('Error fetching users:', error);
+        getAllUsers().then((users: IUser[]) => {
+            setUsers([...users]);
         });
     }, []);
 
-    const handleGetPosts = (userId: number) => {
-        getPostsOfUserById(userId).then(postsData => {
-            setSelectedUserPosts(postsData);
-        }).catch(error => {
-            console.error(`Error fetching posts for user ${userId}:`, error);
-        });
-    };
 
-    const handleGetUserPosts = async (userId: number) => {
-        try {
-            const posts = await getAllPostsByUserId(userId);
-            setSelectedUserPosts(posts);
-        } catch (error) {
-            console.error(`Error fetching posts for user ${userId}:`, error);
-        }
-    };
+    const getPosts = (id:number) => {
+        getAllPostsByUserId(id).then(posts => setPosts([...posts]))
+    }
 
     return (
         <div>
-            <hr />
             <div>
-                {users.map(user => (
+                {users.map((user: IUser) => (
                     <UserComponent
                         key={user.id}
                         user={user}
-                        onSelectUser={setSelectedUserId}
-                        onGetUserPosts={handleGetUserPosts}
-                    />
-                ))}
-            </div>
-            <hr />
+                        getPosts = {getPosts}
 
-            {selectedUserId !== null && (
-                <div>
-                    <PostsComponent posts={selectedUserPosts} />
-                </div>
-            )}
+                    />
+                ))
+                }
+            </div>
+            <hr/>
+            <div>
+                <PostsComponent posts={posts}/>
+            </div>
+
+
+
         </div>
-    );
-};
+
+
+
+    )
+
+}
 
 export default UsersComponent;

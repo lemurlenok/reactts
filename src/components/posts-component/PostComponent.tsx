@@ -9,7 +9,7 @@ const PostsComponent: FC<IProps> = ({posts}) => {
     return (
         <ul>
             {
-                posts.map(value => <li key={value.id}>{value.id}: {value.title}</li>)
+                posts.map(value => <li key={value.id}>{value.id}: {value.title}{value.body}</li>)
             }
         </ul>
     );

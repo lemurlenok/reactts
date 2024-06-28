@@ -1,46 +1,17 @@
-import axios from 'axios';
-import { IUser } from '../models/IUser';
-import { IPost } from '../models/IPost';
+import axios from "axios";
+import {IUser} from "../models/IUser";
+import {IPost} from "../models/IPost";
 
+let axiosInstance = axios.create({
+    baseURL: 'https://dummyjson.com'
+})
 
-const axiosInstance = axios.create({
-    baseURL: 'https://dummyjson.com/users',
-});
-
-axiosInstance.interceptors.request.use(config => {
-    config.headers['Content-Type'] = 'application/json';
-    return config;
-});
-
-
-const getAllUsers = async () => {
-    try {
-        const response = await axiosInstance.get('/users');
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching users:', error);
-        throw error;
-    }
+const getAllUsers = async () : Promise<IUser[]>=> {
+    return await axiosInstance.get('/users'+'?limit=0').then((response) => response.data.users)
 };
 
-const getPostsOfUserById = async (id: number) => {
-    try {
-        const response = await axiosInstance.get(`/users/${id}/posts`);
-        return response.data;
-    } catch (error) {
-        console.error(`Error fetching posts for user ${id}:`, error);
-        throw error;
-    }
-};
+const getAllPostsByUserId = async (id:number) : Promise<IPost[]>=> {
+    return await axiosInstance.get('/posts/user/'+id).then((response) => response.data.posts)
+}
 
-const getAllPostsByUserId = async (userId: number) => {
-    try {
-        const response = await axiosInstance.get(`/posts?userId=${userId}`);
-        return response.data;
-    } catch (error) {
-        console.error(`Error fetching posts for user ${userId}:`, error);
-        throw error;
-    }
-};
-
-export { getAllUsers, getPostsOfUserById, getAllPostsByUserId };
+export {getAllUsers,getAllPostsByUserId}

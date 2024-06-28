@@ -12,7 +12,7 @@ axiosInstance.interceptors.request.use(config => {
     return config;
 });
 
-// Отримання всіх користувачів
+
 const getAllUsers = async () => {
     try {
         const response = await axiosInstance.get('/users');

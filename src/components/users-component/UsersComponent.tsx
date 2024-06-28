@@ -44,7 +44,7 @@ const UsersComponent: FC = () => {
                         key={user.id}
                         user={user}
                         onSelectUser={setSelectedUserId}
-                        onGetUserPosts={handleGetUserPosts} // Додаємо функцію обробки для кнопки
+                        onGetUserPosts={handleGetUserPosts}
                     />
                 ))}
             </div>

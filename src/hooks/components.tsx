@@ -16,14 +16,14 @@ const ToggleComponent: React.FC = () => {
 
 const PreviousComponent: React.FC = () => {
     const [count, setCount] = useState<number>(-20);
-    const previousCount = usePrevious(count); 
+    const previousCount = usePrevious(count);
 
     return (
         <div>
             <h2>Previous Component</h2>
             <button onClick={() => setCount(count + 1)}>Тиць</button>
-            <p>Current: {count} </p>
-            <p>Previous: {previousCount !== undefined ? previousCount : "null"}</p>
+            <p>Поточне: {count} </p>
+            <p>Попереднє: {previousCount !== undefined ? previousCount : "null"}</p>
         </div>
     );
 };

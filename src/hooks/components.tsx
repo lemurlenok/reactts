@@ -23,7 +23,7 @@ const PreviousComponent: React.FC = () => {
             <h2>Previous Component</h2>
             <button onClick={() => setCount(count + 1)}>Тиць</button>
             <p>Поточне: {count} </p>
-            <p>Попереднє: {previousCount !== undefined ? previousCount : "null"}</p>
+            <p>Попереднє: {previousCount !== undefined ? previousCount : "N/A"}</p>
         </div>
     );
 };

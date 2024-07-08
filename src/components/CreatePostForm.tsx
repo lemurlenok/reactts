@@ -17,7 +17,6 @@ const FormComponent = () => {
     });
 
     let formPostCreator = (data: IForm) => {
-        // console.log(data);
 
         const response =  fetch(baseUrl, {
             method: 'POST',
@@ -45,7 +44,7 @@ const FormComponent = () => {
                 <label htmlFor="userId">User ID: </label>
                 <input type="number" id='userId' {...register('userId')} className={styles.input}/>
                 <label htmlFor="title">Title: </label>
-                <input type="text" id='title'{...register('title')} className={styles.input}/>
+                <input type="text" id='title' {...register('title')} className={styles.input}/>
                 <label htmlFor="body">text: </label>
                 <input type="text" id='body' {...register('body')} className={styles.input}/>
 

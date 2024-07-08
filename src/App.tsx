@@ -1,12 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import CreatePostForm from './components/CreatePostForm';
 
-const App: FC = () =>
-    (
-        <>
-
-        </>
-    )
+const App: React.FC = () => {
+    return (
+        <div className="App">
+            <header className="App-header">
+                <h1>Create Post</h1>
+            </header>
+            <main className="App-main">
+                <CreatePostForm />
+            </main>
+        </div>
+    );
+};
 
 export default App;

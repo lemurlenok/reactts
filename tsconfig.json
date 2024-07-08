@@ -22,5 +22,20 @@
   },
   "include": [
     "src"
+  ],
+  "compilerOptions": {
+    "jsx": "react",
+    "target": "es5",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

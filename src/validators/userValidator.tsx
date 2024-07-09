@@ -3,11 +3,11 @@ import Joi from "joi";
 const userValidator =
     Joi.object({
         userId: Joi.number()
-            .min(1)
+            .min(2)
             .max(9)
             .required()
             .messages({
-                "number.min": "min value is 1",
+                "number.min": "min value is 2",
                 "number.max": "max value is 9"
             }),
 

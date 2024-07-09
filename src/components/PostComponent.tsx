@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+// @ts-ignore
 import {IPost} from "../models/IForm";
 
 type MyProp = {

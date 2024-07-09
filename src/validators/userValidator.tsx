@@ -16,14 +16,14 @@ const userValidator =
             .required()
             .messages({
                 "string.empty": "title cannot be empty",
-                "string.pattern.base": "title must contain 7 characters"
+                "string.pattern.base": "more characters"
             }),
         body: Joi.string()
             .required()
             .pattern(/^.{8,}$/)
             .messages({
                 "string.empty": "this area cannot be empty",
-                "string.pattern.base": "up to 8 characters"
+                "string.pattern.base": "not enough characters"
             })
     })
 

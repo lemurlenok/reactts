@@ -16,7 +16,7 @@ class UserComponent extends Component<MyProp, {}> {
                 <button onClick={() => {
                     this.props.getPosts(this.props.user.id)
                 }}>
-                    show all the post
+                    click to see the post
                 </button>
             </div>
         );

@@ -1,14 +1,15 @@
 .userBlock {
-    width: 49%;
+    width: 45%;
+    font-size: 20px;
+    margin: 1px 5px;
     display: flex;
     justify-content: space-between;
-    font-size: 15px;
-    margin: 1px 3px;
+
 }
 
 button {
-    background: #bd8fe7;
-    border-radius: 7px;
-    border: darkviolet 1px solid;
-    font-style: italic;
+    background: #c3f8c7;
+    border-radius: 5px;
+    border: #592806 1px solid;
+
 }

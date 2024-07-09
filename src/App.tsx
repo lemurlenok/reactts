@@ -1,12 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import UsersComponent from "./components/UsersComponent/UsersComponent";
 
-const App: FC = () =>
-    (
-        <>
+const App = () => {
 
-        </>
-    )
+
+    return (
+        <div>
+            <UsersComponent/>
+        </div>
+    );
+}
 
 export default App;

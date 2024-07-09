@@ -5,6 +5,7 @@ import {joiResolver} from "@hookform/resolvers/joi";
 import userValidator from '../validators/userValidator';
 import {baseUrl} from "../constants/api";
 import styles from './FormComponent.module.css'
+import axios from 'axios';
 
 const FormComponent = () => {
 
@@ -16,43 +17,48 @@ const FormComponent = () => {
         resolver: joiResolver(userValidator)
     });
 
-    let formPostCreator = (data: IForm) => {
-
-        const response =  fetch(baseUrl, {
-            method: 'POST',
-            body: JSON.stringify({
+    const formPostCreator = async (data: IForm) => {
+        try {
+            const response = await axios.post(baseUrl, {
                 title: data.title,
                 body: data.body,
                 userId: data.userId,
-            }),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-        })
-            .then((response) => response.json())
-            .then((json) => console.log(json));
+            });
+            console.log(response.data); 
+        } catch (error) {
+            console.error('Помилка під час відправлення даних:', error);
+        }
     };
 
 
 
     return (
         <div className={styles.wrapper}>
-            {errors.userId && <div className={styles.error}>user ID error: {errors.userId?.message}</div>}
-            {errors.title && <div className={styles.error}>title error: {errors.title?.message}</div>}
-            {errors.body && <div className={styles.error}>text error: {errors.body?.message}</div>}
+            {errors.userId && (
+                <div className={styles.error}>
+                    Помилка в ідентифікаторі користувача: {errors.userId?.message}
+                </div>
+            )}
+            {errors.title && (
+                <div className={styles.error}>
+                    Помилка в назві: {errors.title?.message}
+                </div>
+            )}
+            {errors.body && (
+                <div className={styles.error}>Помилка у тексті: {errors.body?.message}</div>
+            )}
             <form onSubmit={handleSubmit(formPostCreator)} className={styles.formContent}>
-                <label htmlFor="userId">User ID: </label>
-                <input type="number" id='userId' {...register('userId')} className={styles.input}/>
-                <label htmlFor="title">Title: </label>
-                <input type="text" id='title' {...register('title')} className={styles.input}/>
-                <label htmlFor="body">text: </label>
-                <input type="text" id='body' {...register('body')} className={styles.input}/>
+                <label htmlFor="userId">Ідентифікатор користувача: </label>
+                <input type="number" id="userId" {...register('userId')} className={styles.input} />
+                <label htmlFor="title">Назва: </label>
+                <input type="text" id="title" {...register('title')} className={styles.input} />
+                <label htmlFor="body">Текст: </label>
+                <input type="text" id="body" {...register('body')} className={styles.input} />
 
-                <button disabled={!isValid} className={styles.btn}>Надіслати</button>
-
+                <button disabled={!isValid} type="submit" className={styles.btn}>
+                    Надіслати
+                </button>
             </form>
-
-
         </div>
     );
 };

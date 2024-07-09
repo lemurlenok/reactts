@@ -1,16 +1,24 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 // @ts-ignore
-import {IPost} from "../models/IForm";
+import { IPost } from '../modals.IForm';
 
-type MyProp = {
+type MyProps = {
     posts: IPost[];
 }
 
-class PostComponent extends Component<MyProp,{}> {
+class PostComponent extends Component<MyProps> {
     render() {
+        const { posts } = this.props;
+
         return (
             <div>
-                {this.props.posts.map(post => <li key={post.id}>{post.title}: {post.body}</li>)}
+                <ul>
+                    {posts.map(post => (
+                        <li key={post.id}>
+                            {post.title}: {post.body}
+                        </li>
+                    ))}
+                </ul>
             </div>
         );
     }

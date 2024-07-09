@@ -1,18 +1,18 @@
-import React, {FC} from 'react';
+import React, {Component} from 'react';
 import {IPost} from "../../models/IPost";
 
-interface IProps {
-    posts: IPost[]
+type MyProp = {
+    posts: IPost[];
 }
 
-const PostsComponent: FC<IProps> = ({posts}) => {
-    return (
-        <ul>
-            {
-                posts.map(value => <li key={value.id}>{value.id}: {value.title}{value.body}</li>)
-            }
-        </ul>
-    );
-};
+class PostComponent extends Component<MyProp,{}> {
+    render() {
+        return (
+            <div>
+                {this.props.posts.map(post => <li key={post.id}>{post.title}: {post.body}</li>)}
+            </div>
+        );
+    }
+}
 
-export default PostsComponent
+export default PostComponent;

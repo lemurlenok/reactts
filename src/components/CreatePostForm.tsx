@@ -1,4 +1,4 @@
-import React, {FormEvent, useEffect, useState} from 'react';
+import React from 'react';
 import {useForm} from "react-hook-form";
 import {IForm} from "../modals/IForm";
 import {joiResolver} from "@hookform/resolvers/joi";
@@ -20,9 +20,9 @@ const FormComponent = () => {
     const formPostCreator = async (data: IForm) => {
         try {
             const response = await axios.post(`${baseUrl}/post`, {
+                userId: data.userId,
                 title: data.title,
                 body: data.body,
-                userId: data.userId,
             });
             console.log(response.data);
         } catch (error) {

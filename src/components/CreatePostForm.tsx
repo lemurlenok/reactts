@@ -19,7 +19,7 @@ const FormComponent = () => {
 
     const formPostCreator = async (data: IForm) => {
         try {
-            const response = await axios.post(`${baseUrl}/post`, {
+            const response = await axios.post(`${baseUrl}/posts`, {
                 userId: data.userId,
                 title: data.title,
                 body: data.body,

@@ -8,29 +8,27 @@ import styles from './FormComponent.module.css'
 import axios from 'axios';
 
 const FormComponent = () => {
-
-    let {formState: {errors, isValid},
+    let {
+        formState: {errors, isValid},
         register,
-        handleSubmit}
-        = useForm<IForm>({
+        handleSubmit
+    } = useForm<IForm>({
         mode: 'all',
         resolver: joiResolver(userValidator)
     });
 
     const formPostCreator = async (data: IForm) => {
         try {
-            const response = await axios.post(baseUrl, {
+            const response = await axios.post(`${baseUrl}/post`, {
                 title: data.title,
                 body: data.body,
                 userId: data.userId,
             });
-            console.log(response.data); 
+            console.log(response.data);
         } catch (error) {
             console.error('Помилка під час відправлення даних:', error);
         }
     };
-
-
 
     return (
         <div className={styles.wrapper}>

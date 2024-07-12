@@ -5,10 +5,7 @@
     height: 80%;
     width: 100%;
     flex-direction: column;
-    color: #360122;
+    color: #05634d;
+
 }
 
-.img {
-    height: 600px;
-    border: 15px groove #030002;;
-}

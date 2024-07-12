@@ -1,5 +1,5 @@
 import React from 'react';
-import CommentsComponent from "../component/commentsComponent/commentsComponent";
+import CommentsComponent from "../components/commentsComponent/commentsComponent";
 
 const CommentsPage = () => {
     return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Outlet} from "react-router-dom";
-import MainComponent from "../component/mainComponent/mainComponent";
+import MainComponent from "../components/mainComponent/mainComponent";
 
 const MainLayout = () => {
     return (

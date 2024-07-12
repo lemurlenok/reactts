@@ -1,5 +1,5 @@
 import React from 'react';
-import ErrorComponent from "../component/errorComponent/errorComponent";
+import ErrorComponent from "../components/errorComponent/errorComponent";
 
 const CustomErrorLayout = () => {
     return (

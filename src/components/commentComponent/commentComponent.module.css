@@ -1,0 +1,23 @@
+.comment {
+    background-color: #f9f9f9;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.comment-id {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.comment-details {
+    font-size: 14px;
+    color: #666;
+}
+
+.comment-email {
+    font-style: italic;
+    color: #888;
+}

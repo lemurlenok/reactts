@@ -1,0 +1,14 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    width: 100%;
+    flex-direction: column;
+    color: #360122;
+}
+
+.img {
+    height: 600px;
+    border: 15px groove #030002;;
+}

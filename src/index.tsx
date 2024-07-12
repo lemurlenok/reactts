@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import CustomErrorLayout from "./layouts/CustomErrorLayout";
 import MainLayout from "./layouts/MainLayout";
 import HomePage from "./pages/HomePage";
 import UsersPage from "./pages/UsersPage";
@@ -17,7 +16,6 @@ const root = ReactDOM.createRoot(
 let router = createBrowserRouter([
     {
         path: '/',
-        errorElement: <CustomErrorLayout/>,
         element: <MainLayout/>,
         children: [
             {index: true, element: <HomePage/>},

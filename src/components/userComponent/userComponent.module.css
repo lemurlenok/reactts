@@ -1,0 +1,23 @@
+.user {
+    background-color: #a4ecdb;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #cccccc;
+}
+
+.user-info {
+    font-size: 1rem;
+    color: #333333;
+}
+
+.user-info strong {
+    font-weight: bold;
+    color: #0066cc;
+}
+
+.user-info span {
+    margin-left: 10px;
+    color: #666666;
+}

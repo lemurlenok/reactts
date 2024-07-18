@@ -1,39 +1,37 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import PaginationComponent from "../components/PaginationComponent/PaginationComponent";
-import {useSearchParams} from "react-router-dom";
-import {IPost} from "../models/IPost";
-import {getAllPosts, getAllCommentsWithSkip} from "../services/api.services";
-import PostsComponent from "../components/postsComponent/postsComponent.";
-import styles from './PagesStyle.module.css'
+import { useSearchParams } from "react-router-dom";
+import { IComment } from "../models/IComment";
+import CommentsComponent from "../components/commentsComponent/commentsComponent";
+import styles from './PagesStyle.module.css';
+import {getAllComments, getAllCommentsWithSkip} from "../services/api.services";
 
-const PostsPage = () => {
 
+const CommentsPage = () => {
 
     let [searchParams] = useSearchParams()
     let page = searchParams.get('page')
 
-    const [posts, setPosts] = useState<IPost[]>([])
+    const [comments, setComments] = useState<IComment[]>([])
 
     useEffect(() => {
         let skip;
 
         if (page){
-            skip = +page * 25 -25;
-            // @ts-ignore
-            getAllPostsWithSkip(skip).then((posts: any) => setPosts([...posts]))
+            skip = +page * 40 - 40;
+            getAllCommentsWithSkip(skip).then(comments => setComments([...comments]))
         }else {
-            getAllPosts().then((posts) => setPosts([...posts]))
+            getAllComments().then(comments => setComments([...comments]))
         }
 
-    },[page]);
-
+    }, [page]);
 
     return (
         <div className={styles.usersDiv}>
-            <PostsComponent posts={posts}/>
+            <CommentsComponent comments={comments}/>
             <PaginationComponent/>
         </div>
     );
 };
 
-export default PostsPage;
+export default CommentsPage;

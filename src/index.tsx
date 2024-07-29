@@ -1,17 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import {createBrowserRouter, RouterProvider} from "react-router-dom"
+import MainLayout from "./layouts/MainLayout"
+import AuthPage from "./Pages/AuthPage"
+import RegPage from "./Pages/RegPage"
+
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+let router =createBrowserRouter([
+    {
+        path: '/', element: <MainLayout/>,
+        errorElement: <h1>Error</h1>,
+        children: [
+            {
+                index: true, element: <AuthPage/>
+            },
+            {
+                path: '/ragistration', element: <RegPage/>
+            }
+        ]
+    }
+
+]);
 root.render(
-    <App />
+    <RouterProvider router={router}/>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+

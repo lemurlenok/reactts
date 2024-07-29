@@ -1,35 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import PaginationComponent from "../components/PaginationComponent/PaginationComponent";
+import CommentsComponent from "../components/commentsComponent/commentsComponent";
+import styles from './styles.module.css';
 import { useSearchParams } from "react-router-dom";
 import { IComment } from "../models/IComment";
-import CommentsComponent from "../components/commentsComponent/commentsComponent";
-import styles from './PagesStyle.module.css';
-import {getAllComments, getAllCommentsWithSkip} from "../services/api.services";
-
+import { getAllComments, getAllCommentsWithSkip } from "../services/api.services";
 
 const CommentsPage = () => {
+    let [searchParams] = useSearchParams();
+    let page = searchParams.get('page');
 
-    let [searchParams] = useSearchParams()
-    let page = searchParams.get('page')
-
-    const [comments, setComments] = useState<IComment[]>([])
+    const [comments, setComments] = useState<IComment[]>([]);
 
     useEffect(() => {
-        let skip;
+        const loadComments = async () => {
+            try {
+                let skip;
+                if (page) {
+                    skip = +page * 40 - 40;
+                    const fetchedComments = await getAllCommentsWithSkip(skip);
+                    setComments([...fetchedComments]);
+                } else {
+                    const fetchedComments = await getAllComments();
+                    setComments([...fetchedComments]);
+                }
+            } catch (error) {
+                console.error('Error loading comments:', error);
+            }
+        };
 
-        if (page){
-            skip = +page * 40 - 40;
-            getAllCommentsWithSkip(skip).then(comments => setComments([...comments]))
-        }else {
-            getAllComments().then(comments => setComments([...comments]))
-        }
-
+        loadComments();
     }, [page]);
 
     return (
-        <div className={styles.usersDiv}>
-            <CommentsComponent comments={comments}/>
-            <PaginationComponent/>
+        <div className={styles.commentsPage}>
+            <h1>Comments Page</h1>
+            <CommentsComponent comments={comments} />
+            <PaginationComponent />
         </div>
     );
 };

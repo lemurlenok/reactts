@@ -1,27 +1,21 @@
-import React, {useEffect, useState} from 'react';
-import {IUser} from "../../models/IUser";
-import {getAllUsers} from "../../services/api.services";
-import UserComponent from "../userComponent/userComponent";
-import styles from './usersComponent.module.css'
+import React, { FC } from 'react';
+import { IUser } from '../../models/IUser';
+import UserComponent from '../userComponent/userComponent';
+import styles from './usersComponent.module.css';
 
-const UsersComponent = () => {
+interface IProps {
+    users: IUser[];
+}
 
-    const [users, setUsers] = useState<IUser[]>([])
-    useEffect(() => {
-        getAllUsers().then((users: IUser[])=> {
-            setUsers([...users])
-        })
-    },[])
-
+const UsersComponent: FC<IProps> = ({ users }) => {
     return (
         <div className={styles.usersWrap}>
-            {users.map((user: IUser) => (
-                <UserComponent
-                    key={user.id}
-                    user={user}
-                />
-            ))
-            }
+            {users.map(user => (
+                <div key={user.id}>
+                    <UserComponent user={user} />
+
+                </div>
+            ))}
         </div>
     );
 };

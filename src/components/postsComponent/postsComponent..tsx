@@ -1,29 +1,20 @@
-import React, {useEffect, useState} from 'react';
+import React, {FC} from 'react';
 import {IPost} from "../../models/IPost";
-import {getAllPosts} from "../../services/api.services";
-import PostComponent from "../postComponent/postComponent";
 import styles from './postsComponent.module.css'
+import PostComponent from "../postComponent/postComponent";
 
-const PostsComponent = () => {
+interface IProp {
+    posts: IPost[]
+}
 
-
-    const [posts, setPosts] = useState<IPost[]>([])
-
-    useEffect(() => {
-        getAllPosts().then((posts) => {
-            setPosts([...posts])
-        })
-    },[])
-
+const PostsComponent:FC<IProp> = ({posts}) => {
     return (
         <div className={styles.wrapper}>
-            {posts.map((post: IPost) => (
+            {posts.map(post => (
                 <PostComponent
                     key={post.id}
-                    post={post}
-                />
-            ))
-            }
+                    post={post}/>
+            ))}
         </div>
     );
 };

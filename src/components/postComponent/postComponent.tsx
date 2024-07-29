@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { IPost } from '../../models/IPost';
+import { Link } from 'react-router-dom';
 import styles from './postComponent.module.css';
 
 interface IProps {
@@ -15,6 +16,9 @@ const PostComponent: FC<IProps> = ({ post }) => {
                 <span>ID: {post.id}</span>
                 <span>User ID: {post.userId}</span>
             </div>
+            <Link to={`/posts/${post.id}/comments`} className={styles['comments-link']}>
+                View Comments
+            </Link>
         </div>
     );
 };

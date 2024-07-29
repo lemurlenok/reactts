@@ -1,27 +1,21 @@
-import React, {useEffect, useState} from 'react';
-import {IComment} from "../../models/IComment";
-import {getAllComments} from "../../services/api.services";
-import CommentComponent from "../commentComponent/commentComponent";
-import styles from './commentsComponent.module.css'
+import React, { FC } from 'react';
+import { IComment } from '../../models/IComment';
+import CommentComponent from '../commentComponent/commentComponent';
+import styles from './commentsComponent.module.css';
 
-const CommentsComponent = () => {
+interface IProp {
+    comments: IComment[];
+}
 
-    const [comments, setComments] = useState<IComment[]>([])
-
-    useEffect(() => {
-        getAllComments().then((comments) => {
-            setComments([...comments])
-        })
-    }, [])
-
+const CommentsComponent: FC<IProp> = ({ comments }) => {
     return (
         <div className={styles.wrapper}>
-            {comments.map((comment) => (
+            {comments.map(comment => (
                 <CommentComponent
-                    key = {comment.id}
-                    comment={comment}/>
-            ))
-            }
+                    key={comment.id}
+                    comment={comment}
+                />
+            ))}
         </div>
     );
 };

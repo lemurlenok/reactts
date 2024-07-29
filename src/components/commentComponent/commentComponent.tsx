@@ -1,20 +1,15 @@
-import React, { FC } from 'react';
-import { IComment } from '../../models/IComment';
-import styles from './commentComponent.module.css';
+import React, {FC} from 'react';
+import styles from './commentComponent.module.css'
+import {IComment} from "../../models/IComment";
 
-interface IProps {
-    comment: IComment;
+interface IProp {
+    comment: IComment
 }
 
-const CommentComponent: FC<IProps> = ({ comment }) => {
+const CommentComponent:FC<IProp> = ({comment}) => {
     return (
         <div className={styles.comment}>
-            <div className={styles['comment-id']}>ID: {comment.id}</div>
-            <div className={styles['comment-details']}>
-                Post ID: {comment.postId} - {comment.name}
-            </div>
-            <div className={styles['comment-email']}>Email: {comment.email}</div>
-            <div className={styles['comment-body']}>{comment.body}</div>
+            {comment.id} {comment.body} - {comment.likes} likes
         </div>
     );
 };

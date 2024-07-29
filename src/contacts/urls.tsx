@@ -1,9 +1,10 @@
-const baseUrl = 'https://jsonplaceholder.typicode.com';
-const usersUrl = '/users';
-const postsUrl = '/posts';
-const commentsUrl = '/comments';
-
-
-
-
-export {baseUrl, commentsUrl, usersUrl, postsUrl}
+export const urls = {
+    baseURL: 'https://dummyjson.com',
+    usersUrl: '/users',
+    postsUrl: '/posts',
+    commentsUrl: '/comments',
+    skipPart: '&skip=',
+    usersLimit: '?limit=20',
+    postsLimit: '?limit=25',
+    commentsLimit: '?limit=40'
+}

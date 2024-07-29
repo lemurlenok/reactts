@@ -5,14 +5,15 @@ import {TokenObtainPairModel} from "../models/TokenObtainPairModel";
 import {authService} from "../services/api.service";
 
 
+
 const AuthFormComponent = () => {
     let {
         handleSubmit,
         register
     } = useForm<TokenObtainPairModel>({
         defaultValues: {
-            username: 'userSZ234',
-            password: 'P@$$word1',
+            username: 'lemurlenok1',
+            password: '4le30Jb4$',
         }
     });
     let authenticate = (data: TokenObtainPairModel) => {

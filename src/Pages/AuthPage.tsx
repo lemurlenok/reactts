@@ -1,9 +1,11 @@
 import React from 'react';
+import AuthFormComponent from "../components/AuthFormComponent";
+
 
 const AuthPage = () => {
     return (
         <div>
-            AuthPage
+            <AuthFormComponent/>
         </div>
     );
 };

@@ -1,23 +1,19 @@
 import React from 'react';
 import {useForm} from "react-hook-form";
-import {UserModel} from "../models/UserModel";
 import {TokenObtainPairModel} from "../models/TokenObtainPairModel";
 import {authService} from "../services/api.service";
 
 
 
-const AuthFormComponent = () => {
-    let {
-        handleSubmit,
-        register
-    } = useForm<TokenObtainPairModel>({
+const AuthFormComponent: React.FC = () => {
+    const { register, handleSubmit } = useForm<TokenObtainPairModel>({
         defaultValues: {
             username: 'lemurlenok1',
             password: '4le30Jb4$',
         }
     });
-    let authenticate = (data: TokenObtainPairModel) => {
-        authService.authenticate(data);
+    const authenticate = (data: TokenObtainPairModel) => {
+        authService.authUser(data)
     };
     return (
         <div>

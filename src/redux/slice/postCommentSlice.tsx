@@ -23,7 +23,7 @@ export const loadCommentsByPostId = createAsyncThunk(
             return thunkAPI.fulfillWithValue(comments);
         } catch (e) {
             const error = e as AxiosError;
-            return thunkAPI.rejectWithValue(error?.response?.data || 'Failed to load comments');
+            return thunkAPI.rejectWithValue(error?.response?.data || 'Не вдалося завантажити коментар');
         }
     }
 );

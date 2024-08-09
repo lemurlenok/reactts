@@ -1,6 +1,7 @@
 import React from 'react';
 import { IComment } from '../../models/IComment';
 
+
 interface CommentsProps {
     comments: IComment[];
 }
@@ -19,7 +20,7 @@ const Comments = ({ comments }: CommentsProps) => {
                     ))}
                 </ul>
             ) : (
-                <p>No comments available.</p>
+                <p>Всі дуже жадібні на коментарі</p>
             )}
         </div>
     );

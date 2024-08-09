@@ -6,16 +6,16 @@ import { AxiosError } from "axios";
 type UserSliceType = {
     users: IUser[];
     isLoaded: boolean;
-    isLoading: boolean; // Додайте статус завантаження
-    error: string | null; // Додайте тип для помилок
+    isLoading: boolean;
+    error: string | null;
     user: IUser | null;
 };
 
 const initialState: UserSliceType = {
     users: [],
     isLoaded: false,
-    isLoading: false, // Ініціалізуйте статус завантаження
-    error: null, // Ініціалізуйте помилки як null
+    isLoading: false,
+    error: null,
     user: null
 };
 

@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, isFulfilled, isRejected } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, isRejected } from '@reduxjs/toolkit';
 import { IComment } from '../../models/IComment';
 import { commentService } from '../../services/api.service';
 import { AxiosError } from 'axios';
@@ -23,7 +23,7 @@ export const loadAllComments = createAsyncThunk(
             return thunkAPI.fulfillWithValue(comments);
         } catch (e) {
             const error = e as AxiosError;
-            return thunkAPI.rejectWithValue(error?.response?.data);
+            return thunkAPI.rejectWithValue(error?.response?.data || 'Failed to load comments');
         }
     }
 );
@@ -35,12 +35,10 @@ const commentsSlice = createSlice({
     extraReducers: builder =>
         builder
             .addCase(loadAllComments.fulfilled, (state, action) => {
-                console.log('Comments loaded:', action.payload);
                 state.comments = action.payload;
                 state.isLoaded = true;
             })
             .addMatcher(isRejected(loadAllComments), (state, action) => {
-                console.log('Error loading comments:', action.payload);
                 state.error = action.payload as string;
             })
 });

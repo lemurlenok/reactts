@@ -9,8 +9,8 @@ export const store = configureStore({
     reducer: {
         userStore: userSlice.reducer,
         postStore: postReducer,
-        commentsStore: commentsReducer,
         postCommentsStore: postCommentsReducer,
+        commentsStore: commentsReducer,
     }
 });
 

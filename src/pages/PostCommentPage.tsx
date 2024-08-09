@@ -1,32 +1,43 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/store';
-import { postCommentsActions } from '../redux/slice/postCommentSlice';
+import { loadCommentsByPostId } from '../redux/slice/postCommentSlice';
 import { useParams } from 'react-router-dom';
-import Comments from '../components/comments/comments';
+import { IComment } from '../models/IComment';
 
-const PostCommentPage = () => {
-    const dispatch = useAppDispatch();
+const PostCommentPage: React.FC = () => {
     const { postId } = useParams<{ postId: string }>();
-    const { postComments, isLoaded, error } = useAppSelector(state => state.postCommentsStore);
+    const dispatch = useAppDispatch();
+    const { comments, isLoaded, error } = useAppSelector(state => state.postCommentsStore);
 
     useEffect(() => {
         if (postId) {
-            dispatch(postCommentsActions.loadCommentsByPostId(Number(postId)));
+            dispatch(loadCommentsByPostId(Number(postId)));
         }
     }, [dispatch, postId]);
 
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
+
+    if (!isLoaded) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <div>
-            {isLoaded ? (
-                postComments[Number(postId)] && postComments[Number(postId)].length > 0 ? (
-                    <Comments comments={postComments[Number(postId)]} />
-                ) : (
-                    <p>No comments available.</p>
-                )
+            {comments.length > 0 ? (
+                <ul>
+                    {comments.map((comment: IComment) => (
+                        <li key={comment.id}>
+                            <h3>{comment.name || 'No Name'}</h3>
+                            <p>{comment.body || 'No Content'}</p>
+                            <small>{comment.email || 'No Email'}</small>
+                        </li>
+                    ))}
+                </ul>
             ) : (
-                <p>Loading...</p>
+                <div>No comments available.</div>
             )}
-            {error && <p>Error: {error}</p>}
         </div>
     );
 };

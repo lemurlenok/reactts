@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { loadAllComments } from '../redux/slice/commentsSlice';
+import Comments from '../components/comments/comments';
 
 const CommentsPage: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -20,15 +21,8 @@ const CommentsPage: React.FC = () => {
 
     return (
         <div>
-            {comments.length > 0 ? (
-                <ul>
-                    {comments.map(comment => (
-                        <li key={comment.id}>{comment.text}</li>
-                    ))}
-                </ul>
-            ) : (
-                <div>No comments available.</div>
-            )}
+            <h1>All Comments</h1>
+            <Comments comments={comments} /> {/* Використання компонента Comments */}
         </div>
     );
 };

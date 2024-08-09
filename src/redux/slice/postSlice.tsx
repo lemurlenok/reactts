@@ -65,9 +65,11 @@ const postSlice = createSlice({
             )
 });
 
+export default postSlice.reducer;
 export const postActions = {
     ...postSlice.actions,
     loadPosts,
     loadPost
 };
+
 

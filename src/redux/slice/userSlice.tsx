@@ -1,44 +1,43 @@
-import {createAsyncThunk, createSlice, isFulfilled, isRejected} from "@reduxjs/toolkit";
-import {IUser} from "../../models/IUser";
-import {userService} from "../../services/api.service";
-import {AxiosError} from "axios";
-
+import { createAsyncThunk, createSlice, isRejected } from "@reduxjs/toolkit";
+import { IUser } from "../../models/IUser";
+import { userService } from "../../services/api.service";
+import { AxiosError } from "axios";
 
 type UserSliceType = {
     users: IUser[];
-    isLoaded: boolean,
-    error: string;
+    isLoaded: boolean;
+    isLoading: boolean; // Додайте статус завантаження
+    error: string | null; // Додайте тип для помилок
     user: IUser | null;
-}
+};
+
 const initialState: UserSliceType = {
     users: [],
     isLoaded: false,
-    error: '',
+    isLoading: false, // Ініціалізуйте статус завантаження
+    error: null, // Ініціалізуйте помилки як null
     user: null
-
 };
 
 let loadUsers = createAsyncThunk('userSlice/loadUsers', async (_, thunkAPI) => {
     try {
         let users = await userService.getAll();
-        return thunkAPI.fulfillWithValue(users);
+        return users;
     } catch (e) {
         let error = e as AxiosError;
-        return thunkAPI.rejectWithValue(error?.response?.data);
+        return thunkAPI.rejectWithValue(error?.response?.data || 'Failed to load users');
     }
 });
 
-let loadUser = createAsyncThunk('userSlice/loadUser',
-    async (id: number, thunkAPI) => {
-        try {
-            let user = await userService.getById(id);
-            return thunkAPI.fulfillWithValue(user);
-        } catch (e) {
-            let error = e as AxiosError;
-            return thunkAPI.rejectWithValue(error?.response?.data);
-        }
-    });
-
+let loadUser = createAsyncThunk('userSlice/loadUser', async (id: number, thunkAPI) => {
+    try {
+        let user = await userService.getById(id);
+        return user;
+    } catch (e) {
+        let error = e as AxiosError;
+        return thunkAPI.rejectWithValue(error?.response?.data || 'Failed to load user');
+    }
+});
 
 export const userSlice = createSlice({
     name: "userSlice",
@@ -53,23 +52,38 @@ export const userSlice = createSlice({
     },
     extraReducers: builder =>
         builder
-            .addCase(
-                loadUsers.fulfilled,
-                (state, action) => {
-                    state.users = action.payload;
-                    state.isLoaded = true;
-
-                })
+            .addCase(loadUsers.pending, state => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(loadUsers.fulfilled, (state, action) => {
+                state.users = action.payload;
+                state.isLoaded = true;
+                state.isLoading = false;
+            })
+            .addCase(loadUsers.rejected, (state, action) => {
+                state.error = action.payload as string;
+                state.isLoading = false;
+            })
+            .addCase(loadUser.pending, state => {
+                state.isLoading = true;
+                state.error = null;
+            })
             .addCase(loadUser.fulfilled, (state, action) => {
                 state.user = action.payload;
-
+                state.isLoading = false;
+            })
+            .addCase(loadUser.rejected, (state, action) => {
+                state.error = action.payload as string;
+                state.isLoading = false;
             })
             .addMatcher(
                 isRejected(loadUsers, loadUser),
                 (state, action) => {
                     state.error = action.payload as string;
-                })
-
+                    state.isLoading = false;
+                }
+            )
 });
 
 export const userAction = {

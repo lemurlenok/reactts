@@ -1,29 +1,32 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/store';
-import { postsAction } from '../redux/slice/postSlice';
+import { postActions } from '../redux/slice/postSlice';
+import { Link } from 'react-router-dom';
 
 const PostsPage = () => {
     const dispatch = useAppDispatch();
-    const posts = useAppSelector(state => state.postsStore.posts);
+    const { posts, isLoaded, error } = useAppSelector(state => state.postStore);
 
     useEffect(() => {
-        dispatch(postsAction.loadPosts());
+        dispatch(postActions.loadPosts());
     }, [dispatch]);
+
+    if (!isLoaded) return <p>Loading...</p>;
+    if (error) return <p>Error: {error}</p>;
 
     return (
         <div>
             <h1>Posts</h1>
-            {posts.length === 0 ? (
-                <p>No posts available</p>
+            {posts && posts.length > 0 ? (
+                posts.map(post => (
+                    <div key={post.id}>
+                        <h2>{post.title}</h2>
+                        <p>{post.body}</p>
+                        <Link to={`/posts/${post.id}/comments`}>View Comments</Link>
+                    </div>
+                ))
             ) : (
-                <ul>
-                    {posts.map(post => (
-                        <li key={post.id}>
-                            <h2>{post.title}</h2>
-                            <p>{post.body}</p>
-                        </li>
-                    ))}
-                </ul>
+                <p>No posts found.</p>
             )}
         </div>
     );

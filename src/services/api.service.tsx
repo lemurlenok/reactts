@@ -30,22 +30,6 @@ export const postService = {
     }
 };
 
-export const commentService = {
-    getAll: async (): Promise<IComment[]> => {
-        const response = await axiosInstance.get<IComment[]>(urls.comments.base);
-        return response.data;
-    },
-    getById: async (id: number): Promise<IComment> => {
-        const response = await axiosInstance.get<IComment>(urls.comments.byId(id));
-        return response.data;
-    },
-    getByPostId: async (postId: number): Promise<IComment[]> => {
-        const response = await axiosInstance.get<IComment[]>(urls.comments.byPostId(postId));
-        return response.data;
-    }
-};
-
-
 export const postCommentService = {
     getCommentsByPostId: async (postId: number): Promise<IComment[]> => {
         try {
@@ -56,4 +40,12 @@ export const postCommentService = {
             throw error;
         }
     }
+};
+export const commentService = {
+    getAll: async (): Promise<IComment[]> => {
+        const response = await axiosInstance.get<IComment[]>(urls.comments.base);
+        return response.data;
+    },
+
+
 };

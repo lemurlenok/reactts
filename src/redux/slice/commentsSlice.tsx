@@ -23,7 +23,7 @@ export const loadAllComments = createAsyncThunk(
             return thunkAPI.fulfillWithValue(comments);
         } catch (e) {
             const error = e as AxiosError;
-            return thunkAPI.rejectWithValue(error?.response?.data || 'Не вдалося завантажити коментар');
+            return thunkAPI.rejectWithValue(error?.response?.data || 'Failed to load comments');
         }
     }
 );
@@ -40,6 +40,7 @@ const commentsSlice = createSlice({
             })
             .addMatcher(isRejected(loadAllComments), (state, action) => {
                 state.error = action.payload as string;
+                state.isLoaded = false;
             })
 });
 

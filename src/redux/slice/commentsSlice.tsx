@@ -19,7 +19,7 @@ export const loadAllComments = createAsyncThunk(
     'commentsSlice/loadAllComments',
     async (_, thunkAPI) => {
         try {
-            const comments = await commentService.getAll(); // Отримання всіх коментарів
+            const comments = await commentService.getAll();
             return thunkAPI.fulfillWithValue(comments);
         } catch (e) {
             const error = e as AxiosError;

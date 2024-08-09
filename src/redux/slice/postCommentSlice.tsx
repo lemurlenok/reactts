@@ -37,7 +37,7 @@ const postCommentsSlice = createSlice({
             .addCase(loadCommentsByPostId.fulfilled, (state, action) => {
                 state.comments = action.payload;
                 state.isLoaded = true;
-                state.error = ''; // Очистити помилку при успішному завантаженні
+                state.error = '';
             })
             .addMatcher(isRejected(loadCommentsByPostId), (state, action) => {
                 state.isLoaded = false; // Оновити isLoaded при помилці

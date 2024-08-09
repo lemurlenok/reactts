@@ -22,7 +22,7 @@ const CommentsPage: React.FC = () => {
     return (
         <div>
             <h1>All Comments</h1>
-            <Comments comments={comments} /> {/* Використання компонента Comments */}
+            <Comments comments={comments} />
         </div>
     );
 };

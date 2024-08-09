@@ -40,7 +40,7 @@ const postCommentsSlice = createSlice({
                 state.error = '';
             })
             .addMatcher(isRejected(loadCommentsByPostId), (state, action) => {
-                state.isLoaded = false; // Оновити isLoaded при помилці
+                state.isLoaded = false;
                 state.error = action.payload as string;
             })
 });

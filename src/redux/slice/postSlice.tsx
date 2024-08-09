@@ -7,7 +7,7 @@ type PostSliceType = {
     posts: IPost[];
     isLoaded: boolean;
     error: string;
-    post: IPost | null; // Змінив user на post
+    post: IPost | null;
 };
 
 const initialState: PostSliceType = {
@@ -29,7 +29,7 @@ export const loadPosts = createAsyncThunk('postSlice/loadPosts', async (_, thunk
 
 export const loadPost = createAsyncThunk('postSlice/loadPost', async (id: number, thunkAPI) => {
     try {
-        const post = await postService.getById(id); // Замініть на ваш правильний метод
+        const post = await postService.getById(id);
         return thunkAPI.fulfillWithValue(post);
     } catch (e) {
         const error = e as AxiosError;
